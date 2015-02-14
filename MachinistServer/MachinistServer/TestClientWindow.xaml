@@ -1,0 +1,17 @@
+﻿<Window x:Class="MachinistServer.TestClientWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="TestClientWindow" Height="216" Width="670" Closing="TestClientWindow_Closing">
+    <Grid>
+        <Button Content="Connect" Height="23" HorizontalAlignment="Left" IsEnabled="{Binding Path=IsDisconnected}" Margin="12,103,0,0" Name="buttonConnect" VerticalAlignment="Top" Width="75" Click="buttonConnect_Click" />
+        <Button Content="Disconnect" Height="23" HorizontalAlignment="Left" IsEnabled="{Binding Path=IsConnected}" Margin="109,103,0,0" Name="buttonDisconnect" VerticalAlignment="Top" Width="75" Click="buttonDisconnect_Click" />
+        <Button Content="Send" Height="23" HorizontalAlignment="Left" IsEnabled="{Binding Path=IsConnected}" Margin="205,103,0,0" Name="buttonSend" VerticalAlignment="Top" Width="75" Click="buttonSend_Click" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="303,103,0,0" Name="textBoxString1" VerticalAlignment="Top" Width="43" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="360,103,0,0" Name="textBoxString2" VerticalAlignment="Top" Width="41" />
+        <Label Content="IP:" Height="28" HorizontalAlignment="Left" Margin="30,24,0,0" Name="label1" VerticalAlignment="Top" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="64,24,0,0" Name="textBoxIP" VerticalAlignment="Top" Width="177" Text="localhost" />
+        <Label Content="Port:" Height="28" HorizontalAlignment="Left" Margin="30,58,0,0" Name="label2" VerticalAlignment="Top" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="64,58,0,0" Name="textBoxPort" VerticalAlignment="Top" Width="120" Text="3000" />
+        <TextBox Height="128" HorizontalAlignment="Left" Margin="432,12,0,0" Name="textBoxResult" VerticalAlignment="Top" Width="204" VerticalScrollBarVisibility="Auto" FontFamily="Courier New" />
+    </Grid>
+</Window>

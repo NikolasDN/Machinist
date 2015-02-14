@@ -1,0 +1,47 @@
+﻿<Window x:Class="MachinistServer.VisualTrack.TrackWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="TrackWindow" Height="600" Width="800" Loaded="Window_Loaded">
+    <Canvas>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="200" />
+            </Grid.ColumnDefinitions>
+            <DataGrid Grid.Row="0" Grid.Column="0" AutoGenerateColumns="False" x:Name="MyGrid" BorderBrush="#FF9BCA4B" BorderThickness="2" SelectionMode="Single" CanUserResizeRows="False" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="130" Header="Name" Binding="{Binding Path=Name}" />
+                    <DataGridTemplateColumn MaxWidth="250" Header="Picture">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding Path=Bitmap1}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Canvas x:Name="MyCanvas" Grid.Column="1" Grid.Row="0">
+                <!--<Canvas.Background>
+                    <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+                        <GradientStop Color="#FF2B522B" Offset="0" />
+                        <GradientStop Color="#FF49DE2E" Offset="1" />
+                    </LinearGradientBrush>
+                </Canvas.Background>-->
+            </Canvas>
+        </Grid>
+        <Button Canvas.Left="22" Canvas.Top="450" Content="Save" Height="23" Name="buttonSave" Width="75" Click="buttonSave_Click" />
+        <Button Canvas.Left="22" Canvas.Top="479" Content="Load" Height="23" Name="buttonLoad" Width="75" Click="buttonLoad_Click" />
+        <Label Canvas.Left="13" Canvas.Top="243" Content="Address1" Height="28" Name="label1" />
+        <Label Canvas.Left="12" Canvas.Top="277" Content="Address2" Height="28" Name="label2" />
+        <Label Canvas.Left="12" Canvas.Top="311" Content="NodeNr1" Height="28" Name="label3" />
+        <Label Canvas.Left="12" Canvas.Top="345" Content="NodeNr2" Height="28" Name="label4" />
+        <TextBox Canvas.Left="88" Canvas.Top="248" Height="23" Name="textBlockAddress1" Text="" Width="52" />
+        <TextBox Canvas.Left="88" Canvas.Top="282" Height="23" Name="textBlockAddress2" Text="" Width="52" />
+        <TextBox Canvas.Left="88" Canvas.Top="316" Height="23" Name="textBlockNodeNr1" Text="" Width="52" />
+        <TextBox Canvas.Left="88" Canvas.Top="350" Height="23" Name="textBlockNodeNr2" Text="" Width="52" />
+        <Label Canvas.Left="13" Canvas.Top="209" Height="28" Name="labelNodeName" FontWeight="Bold" />
+    </Canvas>
+</Window>
