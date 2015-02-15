@@ -31,6 +31,6 @@
         <Button Content="Send" Height="23" HorizontalAlignment="Left" Margin="497,342,0,0" Name="buttonSendToClients" VerticalAlignment="Top" Width="75" Click="buttonSendToClients_Click" />
         <Label Content="DtrEnable:" Height="28" HorizontalAlignment="Left" Margin="18,301,0,0" x:Name="label7_Copy" VerticalAlignment="Top" ClipToBounds="False" />
         <CheckBox Height="16" Margin="116,307,0,0" x:Name="checkBoxDtrEnabled" VerticalAlignment="Top" IsChecked="{Binding Path=DtrEnable}" HorizontalAlignment="Left" Width="16" />
-        <Button Content="Big Screen" Height="23" HorizontalAlignment="Left" Margin="462,387,0,0" x:Name="buttonBigScreen" VerticalAlignment="Top" Width="75" Click="buttonBigScreen_Click" />
+        <Button Content="Big Screen" Height="23" HorizontalAlignment="Left" Margin="462,387,0,0" x:Name="buttonBigScreen" VerticalAlignment="Top" Width="75" Click="buttonBigScreen_Click" IsEnabled="{Binding Path=IsConnected}" />
     </Grid>
 </Window>

@@ -109,6 +109,7 @@ namespace MachinistServer.BigScreen
             // draw nodes
             foreach (Node node in track.Nodes)
             {
+                node.Rechtdoor = true;
                 Image myImage = new Image();
                 string fileName = node.NodeTypeName;
                 if (fileName.Contains("wissel"))
@@ -116,7 +117,7 @@ namespace MachinistServer.BigScreen
                     fileName = fileName + "_1";
                 }
                 ImageSource imageSource = new BitmapImage(new Uri(@"pack://application:,,,/BigScreen/Images/" + fileName + ".png", UriKind.Absolute));
-                myImage.Source = imageSource;  //ToBitmapImage((System.Drawing.Bitmap)Properties.Resources.ResourceManager.GetObject(node.NodeTypeName));
+                myImage.Source = imageSource;
                 myImage.Name = node.NodeTypeName + "_" + _iterator.ToString();
                 _iterator++;
                 myImage.Width = _gridSize;
@@ -162,6 +163,8 @@ namespace MachinistServer.BigScreen
                                     SendData(33, _nodeInfo[name].NodeAddress2);
                                     SendData(33, _nodeInfo[name].NodeAddress1);
                                     _nodeInfo[name].Stand++;
+
+                                    ChangeImage((Image)sender, name, 2);
                                     break;
                                 }
                             case 1:
@@ -170,6 +173,8 @@ namespace MachinistServer.BigScreen
                                     SendData(33, _nodeInfo[name].NodeAddress2);
                                     SendData(34, _nodeInfo[name].NodeAddress1);
                                     _nodeInfo[name].Stand++;
+
+                                    ChangeImage((Image)sender, name, 3);
                                     break;
                                 }
                             case 2:
@@ -178,6 +183,8 @@ namespace MachinistServer.BigScreen
                                     SendData(34, _nodeInfo[name].NodeAddress2);
                                     SendData(33, _nodeInfo[name].NodeAddress1);
                                     _nodeInfo[name].Stand = 0;
+
+                                    ChangeImage((Image)sender, name, 1);
                                     break;
                                 }
                         }
@@ -194,6 +201,8 @@ namespace MachinistServer.BigScreen
                                         SendData(34, _nodeInfo[name].NodeAddress2);
                                         SendData(34, _nodeInfo[name].NodeAddress1);
                                         _nodeInfo[name].Stand++;
+
+                                        ChangeImage((Image)sender, name, 2);
                                         break;
                                     }
                                 case 1:
@@ -202,6 +211,8 @@ namespace MachinistServer.BigScreen
                                         SendData(33, _nodeInfo[name].NodeAddress2);
                                         SendData(34, _nodeInfo[name].NodeAddress1);
                                         _nodeInfo[name].Stand++;
+
+                                        ChangeImage((Image)sender, name, 4);
                                         break;
                                     }
                                 case 2:
@@ -210,6 +221,8 @@ namespace MachinistServer.BigScreen
                                         SendData(34, _nodeInfo[name].NodeAddress2);
                                         SendData(33, _nodeInfo[name].NodeAddress1);
                                         _nodeInfo[name].Stand++;
+
+                                        ChangeImage((Image)sender, name, 3);
                                         break;
                                     }
                                 case 3:
@@ -218,6 +231,8 @@ namespace MachinistServer.BigScreen
                                         SendData(33, _nodeInfo[name].NodeAddress2);
                                         SendData(33, _nodeInfo[name].NodeAddress1);
                                         _nodeInfo[name].Stand = 0;
+
+                                        ChangeImage((Image)sender, name, 1);
                                         break;
                                     }
                             }
@@ -239,6 +254,14 @@ namespace MachinistServer.BigScreen
                             }
 
                             SendData(commando, _nodeInfo[name].NodeAddress1);
+                            if (_nodeInfo[name].Rechtdoor)
+                            {
+                                ChangeImage((Image)sender, name, 1);
+                            }
+                            else
+                            {
+                                ChangeImage((Image)sender, name, 2);
+                            }
                         }
                     }
                 }
@@ -252,6 +275,13 @@ namespace MachinistServer.BigScreen
                 s2 = s2 - 1;
             }
             _agent.Send(s1.ToString(), s2.ToString());
+        }
+
+        private void ChangeImage(Image image, string name, int nr)
+        {
+            string[] baseName = name.Split('_');
+            ImageSource imageSource = new BitmapImage(new Uri(@"pack://application:,,,/BigScreen/Images/" + baseName[0] + "_" + nr.ToString() + ".png", UriKind.Absolute));
+            image.Source = imageSource;
         }
 
     }
