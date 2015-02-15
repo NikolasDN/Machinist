@@ -75,6 +75,8 @@ namespace MachinistServer.BigScreen
 
         private void TrackToXaml(Track track)
         {
+            AlterCoordinatesAndCanvasSize(track);
+
             _iterator = 0;
 
             // clear
@@ -134,6 +136,31 @@ namespace MachinistServer.BigScreen
                 _nodeInfo.Add(myImage.Name, node);
             }
 
+        }
+
+        private void AlterCoordinatesAndCanvasSize(Track track)
+        {
+            int minX = Math.Min(track.Nodes.Min(s => s.X), Math.Min(track.Rails.Min(s => s.StartX), track.Rails.Min(s => s.EndX)));
+            int minY = Math.Min(track.Nodes.Min(s => s.Y), Math.Min(track.Rails.Min(s => s.StartY), track.Rails.Min(s => s.EndY)));
+            int maxX = Math.Max(track.Nodes.Max(s => s.X), Math.Max(track.Rails.Max(s => s.StartX), track.Rails.Max(s => s.EndX)));
+            int maxY = Math.Max(track.Nodes.Max(s => s.Y), Math.Max(track.Rails.Max(s => s.StartY), track.Rails.Max(s => s.EndY)));
+
+            foreach (Rail rail in track.Rails)
+            {
+                rail.StartX -= minX;
+                rail.EndX -= minX;
+                rail.StartY -= minY;
+                rail.EndY -= minY;
+            }
+
+            foreach (Node node in track.Nodes)
+            {
+                node.X -= minX;
+                node.Y -= minY;
+            }
+
+            MyCanvas.Width = (maxX - minX); // *2;
+            MyCanvas.Height = (maxY - minY); // *2;
         }
 
         void myImage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
