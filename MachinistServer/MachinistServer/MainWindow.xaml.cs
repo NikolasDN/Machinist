@@ -21,7 +21,6 @@ namespace MachinistServer
     /// </summary>
     public partial class MainWindow : Window
     {
-        //ClientProxyAgents.Rs232Agent agent = new ClientProxyAgents.Rs232Agent();
         private HostService.TcpIpServer _server;
 
         delegate void updateCallback(string tekst);
@@ -58,10 +57,7 @@ namespace MachinistServer
             try
             {
                 ((ClientProxyAgents.Rs232Agent)DataContext).Connect();
-                //((ClientProxyAgents.Rs232Agent)DataContext).OnDataReceive += new EventHandler(MainWindow_OnDataReceive);
-                //agent.Connect();
-                //agent.OnDataReceive += new EventHandler(MainWindow_OnDataReceive);
-
+                
                 _server = new HostService.TcpIpServer(3000);
                 _server.OnDataReceive += new EventHandler(_server_OnDataReceive);
                 _server.OnError += new EventHandler(_server_OnError);
@@ -101,16 +97,6 @@ namespace MachinistServer
                     // show incoming data from clients
                     UpdateTextBoxReceiveFromClients(data.Data);
 
-                    // send incoming data to track
-                    /*int i1 = (int)data.Data[0];
-                    int i2 = 0;
-                    if (data.Data.Length > 1)
-                    {
-                        i2 = (int)data.Data[1];
-                    }
-
-                    UpdateInputTextBoxesAndSend(i1.ToString(), i2.ToString());*/
-                    
                 }
             }
             catch (Exception ex)
@@ -119,32 +105,6 @@ namespace MachinistServer
             }
         }
 
-        //void MainWindow_OnDataReceive(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        DataEventArg data = (DataEventArg)e;
-        //        if (data != null)
-        //        {
-        //            // show incoming data from the track
-        //            UpdateTextBoxResult(data.Data);
-
-        //            // send incoming data to clients
-        //            int i1 = (int)data.Data[0];
-        //            int i2 = 0;
-        //            if (data.Data.Length > 1)
-        //            {
-        //                i2 = (int)data.Data[1];
-        //            }
-
-        //            //_server.ReturnToAllClients(i1.ToString(), i2.ToString());
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.ToString(), "Receive from TRACK failed");
-        //    }
-        //}
 
         void UpdateSpecialReceiveFromClients(string tekst)
         {
@@ -170,11 +130,6 @@ namespace MachinistServer
             }
             else
             {
-                //update your element here
-                /*if (tekst.Length > 2)
-                {
-                    MessageBox.Show(string.Format("Fout {0}", tekst.Length.ToString()));
-                }*/
                 Char? firstCommand = null;
                 foreach (Char c in tekst)
                 {
@@ -185,8 +140,8 @@ namespace MachinistServer
 
                     if (firstCommand.HasValue)
                     {
-                        string s1 = ((int)(firstCommand.Value)).ToString(); //((int)(tekst[0])).ToString();
-                        string s2 = ((int)(c)).ToString(); //((int)(tekst[1])).ToString();
+                        string s1 = ((int)(firstCommand.Value)).ToString(); 
+                        string s2 = ((int)(c)).ToString(); 
 
                         if (s1 == "33" || s1 == "34")
                         {
@@ -206,29 +161,7 @@ namespace MachinistServer
             }
         }
 
-        /*void UpdateTextBoxResult(string tekst)
-        {
-            if (textBoxResult.Dispatcher.CheckAccess() == false)
-            {
-                updateCallback uCallBack = new updateCallback(UpdateTextBoxResult);
-                this.Dispatcher.Invoke(uCallBack, tekst);
-            }
-            else
-            {
-                //update your element here
-                foreach (Char c in tekst)
-                {
-                    int i = (int)c;
-                    string hexString = Helper.Int32ToHexString(i);
-                    string visualByte = Helper.Int32ToVisualByte(i);
-
-                    textBoxResult.AppendText(string.Format("{0} - {1} - {2}", i.ToString(), hexString, visualByte));
-                    textBoxResult.AppendText(Environment.NewLine);
-                    textBoxResult.ScrollToEnd();
-                }
-            }
-        }*/
-
+       
         void UpdateInputTextBoxesAndSend(string s1, string s2)
         {
             if (textBoxString1.Dispatcher.CheckAccess() == false)
@@ -258,10 +191,7 @@ namespace MachinistServer
             try
             {
                 ((ClientProxyAgents.Rs232Agent)DataContext).Disconnect();
-                //((ClientProxyAgents.Rs232Agent)DataContext).OnDataReceive -= MainWindow_OnDataReceive;
-                //agent.Disconnect();
-                //agent.OnDataReceive -= MainWindow_OnDataReceive;
-
+                
                 if (_server != null)
                 {
                     _server.Disconnect();
@@ -284,7 +214,6 @@ namespace MachinistServer
             try
             {
                 ((ClientProxyAgents.Rs232Agent)DataContext).Send(s1, s2);
-                //agent.Send(s1, s2);
             }
             catch (Exception ex)
             {
@@ -311,7 +240,7 @@ namespace MachinistServer
 
         private void buttonBigScreen_Click(object sender, RoutedEventArgs e)
         {
-            BigScreen.BigScreenWindow w = new BigScreen.BigScreenWindow();
+            BigScreen.BigScreenWindow w = new BigScreen.BigScreenWindow((ClientProxyAgents.Rs232Agent)DataContext);
             w.Show();
         }
     }

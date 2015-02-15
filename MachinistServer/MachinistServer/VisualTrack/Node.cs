@@ -15,5 +15,8 @@ namespace MachinistServer.VisualTrack
         public int NodeAddress2 { get; set; }
         public int NodeNr1 { get; set; }
         public int NodeNr2 { get; set; }
+
+        public int Stand { get; set; }
+        public bool Rechtdoor { get; set; }
     }
 }

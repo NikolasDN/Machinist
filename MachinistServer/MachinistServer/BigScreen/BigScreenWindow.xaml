@@ -1,8 +1,9 @@
 ﻿<Window x:Class="MachinistServer.BigScreen.BigScreenWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="BigScreenWindow" Height="300" Width="300">
-    <Grid>
-        
-    </Grid>
+        Title="BigScreenWindow" Height="300" Width="300" WindowState="Maximized">
+    <Viewbox Stretch="Uniform">
+        <Canvas x:Name="MyCanvas" Background="DarkSeaGreen" Height="600" Width="800"/>
+    </Viewbox>
+
 </Window>

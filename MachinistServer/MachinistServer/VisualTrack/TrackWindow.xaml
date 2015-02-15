@@ -24,12 +24,7 @@
                 </DataGrid.Columns>
             </DataGrid>
             <Canvas x:Name="MyCanvas" Grid.Column="1" Grid.Row="0">
-                <!--<Canvas.Background>
-                    <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
-                        <GradientStop Color="#FF2B522B" Offset="0" />
-                        <GradientStop Color="#FF49DE2E" Offset="1" />
-                    </LinearGradientBrush>
-                </Canvas.Background>-->
+                
             </Canvas>
         </Grid>
         <Button Canvas.Left="22" Canvas.Top="450" Content="Save" Height="23" Name="buttonSave" Width="75" Click="buttonSave_Click" />
