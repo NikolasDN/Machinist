@@ -55,6 +55,7 @@ namespace MachinistServer.BigScreen
         {
             // Create OpenFileDialog
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.InitialDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
 
             // Set filter for file extension and default file extension
             dlg.DefaultExt = ".xml";
